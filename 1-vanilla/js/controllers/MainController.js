@@ -1,6 +1,6 @@
 import FormView from '../views/FormView.js'
 import ResultView from '../views/ResultView.js'
-
+import TabView from '../views/TabView.js'
 
 import SearchModel from '../models/SearchModel.js'
 
@@ -9,11 +9,26 @@ const tag = '[Main Controller]'
 export default{
     init(){
         FormView.setup(document.querySelector('form'))// index의 form부분을 el로 넘겨주기 때문
-        .on('@submit', e => this.onSubmit(e.detail.input)) //Formview에서 setup에서 this를 리턴해줘야됨
-        //submit이벤트 발생했을때=>enter가 쳐졌을때 onSubmit가동
-        .on('@reset', e => this.onResetForm())
+            .on('@submit', e => this.onSubmit(e.detail.input)) //Formview에서 setup에서 this를 리턴해줘야됨
+            //submit이벤트 발생했을때=>enter가 쳐졌을때 onSubmit가동
+            .on('@reset', e => this.onResetForm())
+
+
+        TabView.setup(document.querySelector('#tabs'))
+            .on('@change', e => this.onChangeTab(e.detail.tabName))
+
 
         ResultView.setup(document.querySelector('#search-result'))
+
+        this.selectedTab = '추천 검색어'
+        this.renderVeiw()
+        //TabView.setActiveTab(this.selectedTab)
+    },
+
+    renderVeiw(){
+        console.log(tag, 'renderVeiw()')
+        TabView.setActiveTab(this.selectedTab)
+        ResultView.hide()
     },
 
     search(query){
@@ -43,6 +58,9 @@ export default{
     onSearchResult(data){
         //data를 받아서 render함수로 넘겨줌
         ResultView.render(data)
-    }
+    },
 
+    onChangeTab(tabName){
+        debugger
+    }
 }
