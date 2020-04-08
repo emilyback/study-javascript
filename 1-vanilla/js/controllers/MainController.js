@@ -15,9 +15,9 @@ export default{
 
         ResultView.setup(document.querySelector('#search-result'))
     },
-    search(query){
-        console.log(tag, 'search()', query)
 
+    search(query){
+        FormView.setValue(query)
         SearchModel.list(query).then(data => {
             this.onSearchResult(data)
         })
@@ -25,6 +25,7 @@ export default{
         //그데이터를 받아서 onSearchResult를 실행
         this.onSearchResult([])
     },
+    
 
     onSubmit(input){
         console.log(tag, 'onSubmit()', input)
@@ -34,8 +35,11 @@ export default{
 
     onResetForm(){
         console.log(tag, 'onResetForm')
+        //검색결과 숨기미
+        ResultView.hide()
     },
 
+    
     onSearchResult(data){
         //data를 받아서 render함수로 넘겨줌
         ResultView.render(data)
