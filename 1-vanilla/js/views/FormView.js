@@ -21,13 +21,20 @@ FormView.showResetBtn = function(show = true){
 FormView.bindEvents = function(){
     this.on('submit', e => e.preventDefault())
     this.inputEl.addEventListener('keyup', e => this.onKeyup(e))
+    this.resetEl.addEventListener('click', e => this.onClickReset())//click이 발생하면 onClickRest이 호출
 }
 
 FormView.onKeyup = function(e){ //키가 눌릴때 마다 호출
     const enter = 13
     this.showResetBtn(this.inputEl.value.length)
+    if(!this.inputEl.value.length) this.emit('@reset')
     if(e.keyCode !== enter) return 
     this.emit('@submit', {input: this.inputEl.value}) //enter키가 눌리면?
+}
+
+FormView.onClickReset = function(){
+    this.emit('@reset') //x버튼이 눌리면? @rest을 위임
+    this.showResetBtn(false) //x버튼 삭제
 }
 
 export default FormView
