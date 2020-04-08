@@ -50,6 +50,7 @@ export default{
     },
 
     search(query){
+        FormView.setValue(query)
         //FormView.setValue(query)
         SearchModel.list(query).then(data => {
             this.onSearchResult(data)
@@ -69,7 +70,7 @@ export default{
     onResetForm(){
         console.log(tag, 'onResetForm')
         //검색결과 숨기미
-        ResultView.hide()
+        this.renderVeiw()    
     },
 
     
