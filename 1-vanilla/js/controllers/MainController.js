@@ -21,6 +21,8 @@ export default{
             .on('@change', e => this.onChangeTab(e.detail.tabName))
 
         KeywordView.setup(document.querySelector('#search-keyword'))
+            .on('@click', e => this.onClickKeyword(e.detail.keyword))
+
         ResultView.setup(document.querySelector('#search-result'))
 
         this.selectedTab = '추천 검색어'
@@ -48,13 +50,13 @@ export default{
     },
 
     search(query){
-        FormView.setValue(query)
+        //FormView.setValue(query)
         SearchModel.list(query).then(data => {
             this.onSearchResult(data)
         })
               //search api통해서 데이터를 얻어오고
         //그데이터를 받아서 onSearchResult를 실행
-        this.onSearchResult([])
+        //this.onSearchResult([])
     },
     
 
@@ -73,10 +75,16 @@ export default{
     
     onSearchResult(data){
         //data를 받아서 render함수로 넘겨줌
+        TabView.hide()
+        KeywordView.hide()
         ResultView.render(data)
     },
 
     onChangeTab(tabName){
         debugger
+    },
+
+    onClickKeyword(keyword){
+        this.search(keyword)
     }
 }
