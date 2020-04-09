@@ -7,8 +7,10 @@ new Vue({
                     //미리 설정되도 input 엘레벤트에 저장됨.
         submitted: false,
         tabs: ['추천 검색어', '최근 검색어'],
+        selectedTab: '',
         searchResult: []
     },
+
     created(){
         this.selectedTab = this.tabs[0]
     },
@@ -25,6 +27,11 @@ new Vue({
         onReset(e){ //따로 이벤트 안받아서 안에 e가 없음
            this.restForm() //여기서 this는 vue 인스턴스를 말함,따라서 data의 쿼리
         },
+
+        onClickTab(tab){
+            this.selectedTab = tab
+        },
+
         search(){
             SearchModel.list().then(data =>{ //data변수의 검색 결과가 올것
                this.submitted = true //실제 입력값이 있을때 true
