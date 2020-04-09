@@ -44,6 +44,11 @@ new Vue({
             this.search()
         },
 
+        onClickRemoveHistory(keyword){
+            HistoryModel.remove(keyword)
+            this.fetchHistory()
+        },
+
         fetchKeyword(){
             KeywordModel.list().then(data =>{
                 this.keywords = data
@@ -56,11 +61,13 @@ new Vue({
             })
         },
 
-        search(){
+        search(){//검색할때마다 호출되는 함수
             SearchModel.list().then(data =>{ //data변수의 검색 결과가 올것
                this.submitted = true //실제 입력값이 있을때 true
                 this.searchResult = data
             })
+            HistoryModel.add(this.query)
+            this.fetchHistory()
         },
 
         restForm(){
