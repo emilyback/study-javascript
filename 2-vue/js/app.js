@@ -1,5 +1,6 @@
 import SearchModel from './models/SearchModel.js'
 import KeywordModel from './models/KeywordModel.js'
+import HistoryModel from './models/HistoryModel.js'
 
 new Vue({
     el: '#app',
@@ -10,6 +11,7 @@ new Vue({
         tabs: ['추천 검색어', '최근 검색어'],
         selectedTab: '',
         keywords: [],
+        history: [],
         searchResult: []
         
     },
@@ -17,6 +19,7 @@ new Vue({
     created(){
         this.selectedTab = this.tabs[0]
         this.fetchKeyword()
+        this.fetchHistory()
     },
 
     methods:{ //실제 돔과 바인딩 할 함수 정의 가능
@@ -44,6 +47,12 @@ new Vue({
         fetchKeyword(){
             KeywordModel.list().then(data =>{
                 this.keywords = data
+            })
+        },
+
+        fetchHistory(){
+            HistoryModel.list().then(data =>{
+                this.history = data
             })
         },
 
