@@ -20,6 +20,7 @@ KeywordView.render = function(data = []){
     //데이터가 있을경우,없을경우
     this.bindClickEvent()
     this.show() //실제 출력
+    return this
 }
 
 KeywordView.getKeywordsHtml = function (data){

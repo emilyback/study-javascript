@@ -27,7 +27,8 @@ export default{
             .on('@click', e => this.onClickKeyword(e.detail.keyword))
 
         HistoryView.setup(document.querySelector('#search-history'))
-        .on('@click', e => this.onClickHistroy(e.detail.keyword))
+            .on('@click', e => this.onClickHistroy(e.detail.keyword))
+            .on('@remove', e => this.onRemoveHistory(e.detail.keyword))
 
 
         ResultView.setup(document.querySelector('#search-result'))
@@ -43,8 +44,10 @@ export default{
 
         if(this.selectedTab === '추천 검색어'){
            this.fetchSearchKeyword()
+           HistoryView.hide()
         }else{
             this.fetchSearchHistory()
+            KeywordView.hide()
         }
 
         ResultView.hide()
@@ -58,7 +61,7 @@ export default{
 
     fetchSearchHistory(){
         HistoryModel.list().then(data => {
-            HistoryView.render(data)
+            HistoryView.render(data).bindRemoveBtn()//rend함수 호출 다음에 돔이 생성, 그후 이벤트를 바인딩 할 수 있음
         })
     },
 
@@ -104,5 +107,10 @@ export default{
 
     onClickHistroy(keyword){
         this.search(keyword)
+    },
+
+    onRemoveHistory(keyword){
+        HistoryModel.remove(keyword)
+        this.renderVeiw()
     }
 }
