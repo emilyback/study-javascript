@@ -18,7 +18,7 @@ new Vue({
             this.restForm()
         },
         onReset(e){ //따로 이벤트 안받아서 안에 e가 없음
-           this.restForm()
+           this.restForm() //여기서 this는 vue 인스턴스를 말함,따라서 data의 쿼리
         },
         search(){
             SearchModel.list().then(data =>{ //data변수의 검색 결과가 올것
@@ -28,9 +28,9 @@ new Vue({
         },
 
         restForm(){
-            this.query = '' //여기서 this는 vue 인스턴스를 말함,따라서 data의 쿼리
-            //todo 검색결과를 숨기는...
-            debugger
+            this.query = '' 
+            this.submitted = false
+            this.searchResult = []
         }
        
         
