@@ -6,8 +6,13 @@ new Vue({
         query: '', //입력데이터를 받아서 저장 입력하게 되면 query랑 연결
                     //미리 설정되도 input 엘레벤트에 저장됨.
         submitted: false,
+        tabs: ['추천 검색어', '최근 검색어'],
         searchResult: []
     },
+    created(){
+        this.selectedTab = this.tabs[0]
+    },
+
     methods:{ //실제 돔과 바인딩 할 함수 정의 가능
         onSubmit(e){
             this.search()
