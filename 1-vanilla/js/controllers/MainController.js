@@ -43,13 +43,12 @@ export default{
         TabView.setActiveTab(this.selectedTab)
 
         if(this.selectedTab === '추천 검색어'){
-           this.fetchSearchKeyword()
-           HistoryView.hide()
+        this.fetchSearchKeyword()
+        HistoryView.hide()
         }else{
             this.fetchSearchHistory()
             KeywordView.hide()
         }
-
         ResultView.hide()
     },
 
@@ -57,6 +56,7 @@ export default{
         KeywordModel.list().then(data =>{
             KeywordView.render(data)
         })
+
     },
 
     fetchSearchHistory(){
@@ -68,10 +68,11 @@ export default{
     search(query){
         FormView.setValue(query)
         //FormView.setValue(query)
+        HistoryModel.add(query)
         SearchModel.list(query).then(data => {
             this.onSearchResult(data)
         })
-              //search api통해서 데이터를 얻어오고
+            //search api통해서 데이터를 얻어오고
         //그데이터를 받아서 onSearchResult를 실행
         //this.onSearchResult([])
     },
@@ -94,11 +95,13 @@ export default{
         //data를 받아서 render함수로 넘겨줌
         TabView.hide()
         KeywordView.hide()
+        HistoryView.hide()
         ResultView.render(data)
     },
 
     onChangeTab(tabName){
-        debugger
+        this.selectedTab = tabName
+        this.renderVeiw()
     },
 
     onClickKeyword(keyword){
