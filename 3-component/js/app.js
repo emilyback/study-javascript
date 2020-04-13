@@ -4,6 +4,7 @@ import HistoryModel from './models/HistoryModel.js'
 
 import FormComponent from './component/FormComponent.js'
 import ResultComponent from './component/ResultComponent.js'
+import ListComponent from './component/ListComponent.js'
 
 new Vue({
   el: '#app',
@@ -19,7 +20,8 @@ new Vue({
 
   components:{
     'search-form' : FormComponent, //뷰 인스턴스에 사용할 컴포넌트를 설정하는 부분, 실제 사용시엔 search-form 사용(index.html에서)
-    'search-result' : ResultComponent
+    'search-result' : ResultComponent,
+    'list': ListComponent
   },
 
 

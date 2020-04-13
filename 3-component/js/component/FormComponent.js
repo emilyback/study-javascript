@@ -10,6 +10,11 @@ export default {
         }
     },
 
+    watch:{ //어떤 뷰모델을 감시하다 변경되면 행동
+        value(newVal, oldVal){
+            this.inputValue = newVal
+        }
+    },
     methods:{
         onSubmit(){
             this.$emit('@submit', this.inputValue.trim()) //$emit():child->parent, 자식에서 이벤트 발생한걸 부모에게 알려준다.
